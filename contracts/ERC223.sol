@@ -113,6 +113,10 @@ contract ERC223 is IERC223 {
     {
         // Standard function transfer similar to ERC20 transfer with no _data .
         // Added due to backwards compatibility reasons .
+        // Check if the sender has enough
+        require(balances[msg.sender] >= _value);
+        // Check for overflows
+        require(balances[_to] + _value >= balances[_to]);
         balances[msg.sender] = balances[msg.sender] - _value;
         balances[_to] = balances[_to] + _value;
         if(Address.isContract(_to)) {
@@ -135,6 +139,10 @@ contract ERC223 is IERC223 {
     function transfer(address _to, uint _value) public override returns (bool success)
     {
         bytes memory _empty = hex"00000000";
+        // Check if the sender has enough
+        require(balances[msg.sender] >= _value);
+        // Check for overflows
+        require(balances[_to] + _value >= balances[_to]);
         balances[msg.sender] = balances[msg.sender] - _value;
         balances[_to] = balances[_to] + _value;
         if(Address.isContract(_to)) {
