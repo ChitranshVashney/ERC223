@@ -28,12 +28,10 @@ contract ERC223 is IERC223 {
      * construction.
      */
      
-   /* constructor(string memory new_name, string memory new_symbol, uint8 new_decimals)
+   constructor()
     {
-        _name     = new_name;
-        _symbol   = new_symbol;
-        _decimals = new_decimals;
-    }*/
+        balances[msg.sender]=_totalSupply;
+    }
 
     /**
      * @dev ERC223 tokens must explicitly return "erc223" on standard() function call.
